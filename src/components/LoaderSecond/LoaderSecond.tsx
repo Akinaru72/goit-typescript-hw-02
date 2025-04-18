@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+import css from "./LoaderSecond.module.css";
 
-const LoaderSecond = () => {
-  const [sentence, setSentence] = useState("Please wait ...Loading...🎉....");
+const LoaderSecond: React.FC = () => {
+  const [sentence, setSentence] = useState<string>("..................🏃..🐕‍🦺");
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -11,7 +12,7 @@ const LoaderSecond = () => {
     return () => clearInterval(interval);
   }, []);
 
-  return <div>{sentence}</div>;
+  return <div className={css.loaderText}>{sentence}</div>;
 };
 
 export default LoaderSecond;

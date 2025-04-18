@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import fetchPhotos from "../../photoService";
+import { Photo, FetchPhotosResponse } from "../../types";
 
 import SearchBar from "../SearchBar/SearchBar";
 import ImageGallery from "../ImageGallery/ImageGallery";
@@ -12,14 +13,17 @@ import Loader from "../Loader/Loader";
 import css from "./App.module.css";
 
 const App = () => {
-  const [queryValue, setQueryValue] = useState("");
-  const [photos, setPhotos] = useState([]);
-  const [page, setPage] = useState(1);
-  const [isError, setIsError] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
+  const [queryValue, setQueryValue] = useState<string>("");
+  const [photos, setPhotos] = useState<Photo[]>([]);
+  const [page, setPage] = useState<number>(1);
+  const [isError, setIsError] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [hasMore, setHasMore] = useState<boolean>(true);
+  const [selectedDescription, setSelectedDescription] = useState<string | null>(
+    null
+  );
 
   useEffect(() => {
     if (!queryValue.trim()) return;
@@ -28,7 +32,7 @@ const App = () => {
       try {
         setIsLoading(true);
         setIsError(false);
-        const data = await fetchPhotos(queryValue, page);
+        const data: FetchPhotosResponse = await fetchPhotos(queryValue, page);
         if (data.total === 0) return;
         setPhotos((prevPhotos) =>
           page === 1 ? data.results : [...prevPhotos, ...data.results]
@@ -45,7 +49,7 @@ const App = () => {
     getPhotos();
   }, [queryValue, page]);
 
-  const handleQuery = (newQuery) => {
+  const handleQuery = (newQuery: string) => {
     if (!newQuery.trim()) {
       toast.error("Please enter a valid search query");
       return;
@@ -59,15 +63,16 @@ const App = () => {
     setPage((prevPage) => prevPage + 1);
   };
 
-  const openModal = (imageUrl) => {
+  const openModal = (imageUrl: string, description: string | null) => {
     setSelectedImage(imageUrl);
-
+    setSelectedDescription(description);
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedImage(null);
+    setSelectedDescription(null);
   };
 
   return (
@@ -90,6 +95,7 @@ const App = () => {
         isOpen={isModalOpen}
         onRequestClose={closeModal}
         imageUrl={selectedImage}
+        description={selectedDescription}
       />
     </div>
   );

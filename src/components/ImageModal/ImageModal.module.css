@@ -4,29 +4,31 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.7); /* Затемнение фона */
+  background: rgba(0, 0, 0, 0.7);
   display: flex;
+
   align-items: center;
   justify-content: center;
 }
 
 .modal {
   position: relative;
-  max-width: 90vw; /* Максимальная ширина */
-  max-height: 90vh; /* Максимальная высота */
+  max-width: 90vw;
+  max-height: 90vh;
   background: white;
   padding: 10px;
   border-radius: 10px;
   overflow: hidden;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
 .image {
   max-width: 100%;
-  max-height: 80vh; /* Оставляем место для кнопки закрытия */
-  object-fit: contain; /* Гарантирует, что изображение не выйдет за границы */
+  max-height: 80vh;
+  object-fit: contain;
 }
 
 .closeButton {
@@ -40,4 +42,11 @@
   padding: 5px 10px;
   cursor: pointer;
   border-radius: 5;
+}
+
+.description {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 16px;
+  color: #333;
 }

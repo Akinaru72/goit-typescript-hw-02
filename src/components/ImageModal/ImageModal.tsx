@@ -1,9 +1,20 @@
 import Modal from "react-modal";
 import css from "./ImageModal.module.css";
-
 Modal.setAppElement("#root");
 
-const ImageModal = ({ isOpen, onRequestClose, imageUrl }) => {
+interface ImageModalProps {
+  isOpen: boolean;
+  onRequestClose: () => void;
+  imageUrl: string | null;
+  description: string | null;
+}
+
+const ImageModal: React.FC<ImageModalProps> = ({
+  isOpen,
+  onRequestClose,
+  imageUrl,
+  description,
+}) => {
   return (
     <Modal
       isOpen={isOpen}
@@ -11,7 +22,20 @@ const ImageModal = ({ isOpen, onRequestClose, imageUrl }) => {
       className={css.modal}
       overlayClassName={css.overlay}
     >
-      <img src={imageUrl} alt="Large image" className={css.image} />
+      {imageUrl ? (
+        <>
+          <img
+            src={imageUrl}
+            alt={description ?? "Large image"}
+            className={css.image}
+          />
+          <p className={css.description}>
+            {description ?? "No description available"}
+          </p>
+        </>
+      ) : (
+        <p>No image available</p>
+      )}
 
       <button onClick={onRequestClose} className={css.closeButton}>
         Close

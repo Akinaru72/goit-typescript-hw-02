@@ -2,7 +2,7 @@ import { ClipLoader } from "react-spinners";
 import css from "./Loader.module.css";
 import LoaderSecond from "../LoaderSecond/LoaderSecond";
 
-const Loader = () => {
+const Loader: React.FC = () => {
   // console.log("loader.........");
   return (
     <div className={css.container}>
