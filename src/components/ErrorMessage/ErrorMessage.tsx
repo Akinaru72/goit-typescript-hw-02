@@ -1,7 +1,7 @@
 import { BiSolidError } from "react-icons/bi";
 import css from "./ErrorMessage.module.css";
 
-const ErrorMessage: React.FC = (): JSX.Element => {
+const ErrorMessage: React.FC = () => {
   return (
     <div className={css.container}>
       <BiSolidError className={css.errorIcon} />
